@@ -69,6 +69,14 @@ TEMPLATES = [
     },
 ]
 
+# settings.py
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "cyborg",
+    "dark_mode_theme": "cyborg",  # Esta línea puede ser opcional dependiendo de la versión
+}
+
+
 WSGI_APPLICATION = 'inventario.wsgi.application'
 
 
