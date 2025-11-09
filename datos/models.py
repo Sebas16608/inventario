@@ -18,17 +18,16 @@ class Category(models.Model):
     def __str__(self):
         return self.nombre
 
-
 class Datos(models.Model):
     categoria = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="datos")
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField()
-    presentacion = models.CharField(max_length=255, blank=False, null=False)
+    presentacion = models.CharField(max_length=255)
     fecha_fabricacion = models.DateField()
     fecha_caducidad = models.DateField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_descuento = models.FloatField(blank=True, null=True)
- 
+    precio_descuento = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
     class Meta:
         verbose_name = "Dato"
         verbose_name_plural = "Datos"
@@ -38,13 +37,11 @@ class Datos(models.Model):
 
     def pocacantidad(self):
         if self.cantidad <= 5:
-            return f"Se necesita mas producto solo hay {self.cantidad} unidad/es"
-        return f"Stock suficiente hay {self.cantidad} unidades"
-   
+            return f"Se necesita más producto: solo hay {self.cantidad} unidad/es"
+        return f"Stock suficiente: hay {self.cantidad} unidades"
+
     def precio_total(self):
-        if self.precio_descuento is None:
+        if not self.precio_descuento:
             return f"Sin descuento aplicado: {self.precio}"
-    
-        precio_final = self.precio + self.precio_descuento
+        precio_final = self.precio - self.precio_descuento
         return f"Con descuento aplicado: {precio_final:.2f}"
-  
