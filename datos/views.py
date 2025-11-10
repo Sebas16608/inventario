@@ -98,3 +98,7 @@ class DatosMalloView(APIView):
         
         dato.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+"""
+Categoria Veterinaria
+"""
