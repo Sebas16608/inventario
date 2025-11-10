@@ -8,6 +8,10 @@ from .models import Category, Datos
 def notexist():
     return {"error": "Los datos no fueron entontrados"}
 
+"""
+API categorias de MALLO
+"""
+
 class CategoryMalloView(APIView):
     def get(self, request, pk=None):
         if pk:
@@ -29,3 +33,23 @@ class CategoryMalloView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    def put(self, request, pk):
+        try:
+            category = Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = CategoryMalloSerializer(category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        try:
+            category = Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
