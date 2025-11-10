@@ -53,3 +53,22 @@ class CategoryMalloView(APIView):
         
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+"""
+API datos MALLO
+"""
+class DatosMalloView(APIView):
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                datos = Datos.objects.get(pk=pk)
+                serializer = DatosMalloSerializer(datos)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except Datos.DoesNotExist:
+                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            datos = Datos.objects.all()
+            serializer = DatosMalloSerializer(datos, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+    
