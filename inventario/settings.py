@@ -76,6 +76,13 @@ JAZZMIN_UI_TWEAKS = {
     "dark_mode_theme": "cyborg",  # Esta línea puede ser opcional dependiendo de la versión
 }
 
+REST_FRAMEWORK = {
+    # Solo usuarios autenticados pueden acceder
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
 
 WSGI_APPLICATION = 'inventario.wsgi.application'
 
