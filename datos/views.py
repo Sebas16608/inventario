@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from .serializers import CategoryMalloSerializer, DatosMalloSerializer, CategoryVetSerializer, DatoVetSerializer
 from .models import Category, Datos
 # Create your views here.
@@ -102,3 +102,5 @@ class DatosMalloView(APIView):
 """
 Categoria Veterinaria
 """
+class CategoriaVetView(APIView):
+    pass
