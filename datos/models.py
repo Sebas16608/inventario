@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
-# Agregar categoria
-# restar o sumar cada que se agrega o se retira producto
+
 # Costo de producto grande en pocas cantidades ejemplo Litros a ML
 # Create your models here.
 class Category(models.Model):
