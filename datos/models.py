@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Agregar categoria
 # restar o sumar cada que se agrega o se retira producto
 # Costo de producto grande en pocas cantidades ejemplo Litros a ML
@@ -45,3 +45,32 @@ class Datos(models.Model):
             return f"Sin descuento aplicado: {self.precio}"
         precio_final = self.precio - self.precio_descuento
         return f"Con descuento aplicado: {precio_final:.2f}"
+
+class SacarDatos(models.Model):
+    datos = models.ForeignKey(Datos, on_delete=models.CASCADE, related_name="salidas")
+    cantidad_sacada = models.PositiveIntegerField()
+    fecha_salida = models.DateField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Salida de Producto"
+        verbose_name_plural = "Salidas de Productos"
+
+    def __str__(self):
+        return f"Se sacaron {self.cantidad_sacada} de {self.datos.nombre}"
+
+    def actualizar_stock(self):
+        if self.cantidad_sacada > self.datos.cantidad:
+            return f"No hay suficiente stock de {self.datos.nombre}"
+        self.datos.cantidad -= self.cantidad_sacada
+        self.datos.save()
+        return f"Stock actualizado: ahora hay {self.datos.cantidad} unidades"
+
+    def save(self, *args, **kwargs):
+        if self.cantidad_sacada > self.datos.cantidad:
+            raise ValueError(f"No hay suficiente stock de {self.datos.nombre}")
+        self.datos.cantidad -= self.cantidad_sacada
+        self.datos.save()
+        super().save(*args, **kwargs)
+
+    def total_salida(self):
+        return self.cantidad_sacada * self.datos.precio_final()
