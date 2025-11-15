@@ -1,6 +1,6 @@
 from django.db import models
 
-class Category(models.Model):
+class VetCategory(models.Model):
     nombre = models.CharField(max_length=255)
 
     class Meta:
@@ -10,8 +10,8 @@ class Category(models.Model):
     def __str__(self):
         return self.nombre
 
-class Datos(models.Model):
-    categoria = models.ForeingKey(Category, on_delete=models.PROTECT, related_name="datos")
+class VetDatos(models.Model):
+    categoria = models.ForeignKey(VetCategory, on_delete=models.PROTECT, related_name="datos")
     nombre = models.CharField(max_length=255)
     cantidad = models.IntegerField()
     presentacion = models.CharField(max_length=255)
@@ -19,4 +19,4 @@ class Datos(models.Model):
     fecha_caducidad = models.DateField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
 
-
+    
