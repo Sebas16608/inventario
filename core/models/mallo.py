@@ -1,7 +1,9 @@
 from django.db import models
-from django.utils import timezon
+from django.utils import timezone
 
-class Category(models.Model):
+# Costo de producto grande en pocas cantidades ejemplo Litros a ML
+# Create your models here.
+class MalloCategory(models.Model):
     nombre = models.CharField(max_length=255)
     moleculas = models.CharField(max_length=255, blank=True, null=True)
     especie = models.CharField(max_length=255, blank=True, null=True)
@@ -15,8 +17,8 @@ class Category(models.Model):
     def __str__(self):
         return self.nombre
 
-class Datos(models.Model):
-    categoria = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="datos")
+class MalloDatos(models.Model):
+    categoria = models.ForeignKey(MalloCategory, on_delete=models.PROTECT, related_name="datos")
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField()
     presentacion = models.CharField(max_length=255)
@@ -44,7 +46,7 @@ class Datos(models.Model):
         return f"Con descuento aplicado: {precio_final:.2f}"
 
 class SacarDatos(models.Model):
-    datos = models.ForeignKey(Datos, on_delete=models.CASCADE, related_name="salidas")
+    datos = models.ForeignKey(MalloDatos, on_delete=models.CASCADE, related_name="salidas")
     cantidad_sacada = models.PositiveIntegerField()
     fecha_salida = models.DateField(default=timezone.now)
 
