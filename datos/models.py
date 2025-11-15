@@ -42,8 +42,10 @@ class Datos(models.Model):
     def precio_total(self):
         if not self.precio_descuento:
             return f"Sin descuento aplicado: {self.precio}"
-        precio_final = self.precio - self.precio_descuento
+
+        precio_final = self.precio * (1 - (self.precio_descuento / 100))
         return f"Con descuento aplicado: {precio_final:.2f}"
+
 
 class SacarDatos(models.Model):
     datos = models.ForeignKey(Datos, on_delete=models.CASCADE, related_name="salidas")
