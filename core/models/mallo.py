@@ -46,7 +46,7 @@ class MalloDatos(models.Model):
         precio_final = self.precio * (1 - (self.precio_descuento / 100))
         return f"Con descuento aplicado: {precio_final:.2f}"
 
-class SacarDatos(models.Model):
+class MalloSacarDatos(models.Model):
     datos = models.ForeignKey(MalloDatos, on_delete=models.CASCADE, related_name="salidas")
     cantidad_sacada = models.PositiveIntegerField()
     fecha_salida = models.DateField(default=timezone.now)
