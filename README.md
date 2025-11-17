@@ -1,9 +1,9 @@
-📦 Sistema de Inventario — Backend (Django REST)
+# 📦 Sistema de Inventario — Backend (Django REST)
 
 Un sistema de inventario modular construido con Django y Django REST Framework, dividido en dos apps principales:
 core (lógica empresarial modularizada) y datos (gestión general de datos e inventario).
 
-🚀 Características principales
+## 🚀 Características principales
 
 API REST moderna con Django REST Framework
 
@@ -65,8 +65,8 @@ inventario/
 ├── README.md
 └── requirements.txt
 ```
-🧩 Arquitectura
-📁 core
+## 🧩 Arquitectura
+# 📁 core
 
 Contiene la lógica modularizada:
 
@@ -82,7 +82,7 @@ urls.py → ruteo propio del módulo
 
 Ideal para expandir a nuevos tipos de negocios sin romper nada.
 
-📁 datos
+## 📁 datos
 
 Maneja:
 
@@ -94,18 +94,19 @@ Endpoints CRUD generales
 
 Perfecto para datos que no pertenecen a un área específica.
 
-🧪 Tests
+## 🧪 Tests
 
 La app datos incluye estructura lista para tests en tests.py.
 
-📦 Requerimientos
+# 📦 Requerimientos
 
 Incluye archivo:
 ```bash
 requirements.txt
 ```
 Con todas las dependencias necesarias del proyecto.
-👨‍💻 Autor
+
+# 👨‍💻 Autor
 
 Ángel Sebastian Rodas Rodríguez (Sebas)
 Desarrollador Web & Backend
