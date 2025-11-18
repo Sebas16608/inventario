@@ -18,3 +18,7 @@ class MalloCategoryView(APIView):
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except MalloCategory.DoesNotExist:
                 return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            category = MalloCategory.objects.all()
+            serializer = MalloCategorySerializer(category, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
