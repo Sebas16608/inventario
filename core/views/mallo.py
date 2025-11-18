@@ -22,3 +22,5 @@ class MalloCategoryView(APIView):
             category = MalloCategory.objects.all()
             serializer = MalloCategorySerializer(category, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        
