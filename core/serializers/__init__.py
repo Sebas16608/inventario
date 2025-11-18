@@ -1,13 +1,2 @@
-from .mallo import (
-    MalloPermisos, 
-    EsSuperUser, 
-    MalloPermisosLectura, 
-    MalloPermisosEscritura
-)
-
-__all__ = [
-    'MalloPermisos',
-    'EsSuperUser', 
-    'MalloPermisosLectura',
-    'MalloPermisosEscritura'
-]
+from serializers.mallo import *
+from serializers.veterinaria import *
