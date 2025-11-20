@@ -51,4 +51,19 @@ class MalloCategoryView(APIView):
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-    
+
+class MalloDatosView(APIView):
+    permission_classes = [MalloPermisos]
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                dato = MalloDatos.objects.get(pk=pk)
+                serializer = MalloDatosSerializer(dato)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except MalloDatos.DoesNotExist:
+                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            dato = MalloDatos.objects.all()
+            serializer = MalloDatosSerializer(dato, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
