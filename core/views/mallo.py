@@ -84,11 +84,11 @@ class MalloDatosView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Responser(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
         try:
-            datos = MalloDatos.objects.get(pk=pk):
+            datos = MalloDatos.objects.get(pk=pk)
         except MalloDatos.DoesNotExist:
             return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
 
