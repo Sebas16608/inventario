@@ -94,3 +94,18 @@ class MalloDatosView(APIView):
 
         datos.delete()
         return Response(status=status.HTTP_204_NOT_CONTENT)
+
+class MalloSacarDatosView(APIView):
+    permission_classes = [MalloPermisos]
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                sacar = MalloSacarDatos.objects.get(pk=pk)
+                serializer = MalloSacarDatosSerializer(sacar)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except MalloSacarDatos.DoesNotExist:
+                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            sacar = MalloSacarDatos.objects.all()
+            serializer = MalloSacarDatosSerializer(sacar, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
