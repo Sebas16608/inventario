@@ -1,6 +1,6 @@
 from django.db import models
+from core.models.empresa import Empresa
 from django.utils import timezone
-
 # Costo de producto grande en pocas cantidades ejemplo Litros a ML
 # Create your models here.
 class MalloCategory(models.Model):
@@ -9,6 +9,7 @@ class MalloCategory(models.Model):
     especie = models.CharField(max_length=255, blank=True, null=True)
     etapa = models.CharField(max_length=255, blank=True, null=True)
     presentacion = models.CharField(max_length=100)
+    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, related_name="categoria")
 
     class Meta:
         verbose_name = "Categoria"
@@ -26,6 +27,7 @@ class MalloDatos(models.Model):
     fecha_caducidad = models.DateField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     precio_descuento = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = "Dato"
@@ -50,6 +52,7 @@ class MalloSacarDatos(models.Model):
     datos = models.ForeignKey(MalloDatos, on_delete=models.CASCADE, related_name="salidas")
     cantidad_sacada = models.PositiveIntegerField()
     fecha_salida = models.DateField(default=timezone.now)
+    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = "Salida de Producto"
