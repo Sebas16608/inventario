@@ -1,2 +1,2 @@
-from serializers.mallo import *
-from serializers.veterinaria import *
+from .mallo import *
+from .veterinaria import *
