@@ -1,9 +1,9 @@
-from models.mallo import MalloCategory, MalloDatos, MalloSacarDatos
-from serializers.mallo import MalloCategorySerializer, MalloDatosSerializer, MalloSacarDatosSerializer
+from core.models.mallo import MalloCategory, MalloDatos, MalloSacarDatos
+from core.serializers.mallo import MalloCategorySerializer, MalloDatosSerializer, MalloSacarDatosSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from permissions.mallo import MalloPermisos
+from core.permissions.mallo import MalloPermisos
 
 def notexist():
     return {"error": "los datos no fueron encontrados"}
