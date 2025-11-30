@@ -1,4 +1,4 @@
-from core.views.mallo import MalloCategoryView, MalloDatosView, MalloSacarDatosView
+from core.views.mallo import MalloCategoryView, MalloDatosView, MalloSacarDatosView, MalloGenerarFacturaPDF
 from django.urls import path
 
 urlpatterns = [
@@ -12,5 +12,5 @@ urlpatterns = [
 
     # Salidas
     path("salida/", MalloSacarDatosView.as_view(), name="salidas-list"),
-    path("salida/<int:pk>/", MalloSacarDatosView.as_view(), name="salida-detail")
+    path("salida/<int:pk>/", MalloSacarDatosView.as_view(), name="salida-detail"),
 ]
