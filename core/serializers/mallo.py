@@ -1,4 +1,4 @@
-from core.models.mallo import MalloCategory, MalloDatos, MalloSacarDatos
+from core.models.mallo import MalloCategory, MalloDatos, MalloSacarDatos, MalloEntrada
 from rest_framework import serializers
 
 class MalloCategorySerializer(serializers.ModelSerializer):
@@ -14,4 +14,9 @@ class MalloDatosSerializer(serializers.ModelSerializer):
 class MalloSacarDatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = MalloSacarDatos
+        fields = "__all__"
+
+class MalloEntradaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MalloEntrada
         fields = "__all__"
