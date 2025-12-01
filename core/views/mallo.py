@@ -1,5 +1,5 @@
-from core.models.mallo import MalloCategory, MalloDatos, MalloSacarDatos
-from core.serializers.mallo import MalloCategorySerializer, MalloDatosSerializer, MalloSacarDatosSerializer
+from core.models.mallo import MalloCategory, MalloDatos, MalloSacarDatos, MalloEntrada
+from core.serializers.mallo import MalloCategorySerializer, MalloDatosSerializer, MalloSacarDatosSerializer, MalloEntradaSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -137,3 +137,18 @@ class MalloSacarDatosView(APIView):
         
         datos.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class MalloEntradaView(APIView):
+    permission_classes = [MalloPermisos]
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                entrada = MalloEntrada.objects.get(pk=pk)
+                serializer = MalloEntradaSerializer(entrada)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except MalloEntrada.DoesNotExist:
+                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            entrada = MalloEntrada.objects.get()
+            serializer  = MalloEntradaSerializer(entrada, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
