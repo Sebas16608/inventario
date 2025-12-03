@@ -2,6 +2,7 @@ from core.views.mallo import MalloCategoryView, MalloDatosView, MalloSacarDatosV
 from django.urls import path
 
 urlpatterns = [
+    # ==== MALLO ====
     # Categories
     path("category/", MalloCategoryView.as_view(), name="category-list"),
     path("category/<int:pk>/", MalloCategoryView.as_view(), name="category-detail"),
