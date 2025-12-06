@@ -1,5 +1,6 @@
 from django.db import models
 from core.models.empresa import Empresa
+from django.utils import timezone
 
 class VetCategory(models.Model):
     nombre = models.CharField(max_length=255)
@@ -30,4 +31,30 @@ class VetDatos(models.Model):
     
 class VetSacarDatos(models.Model):
     datos = models.ForeignKey(VetDatos, on_delete=models.PROTECT, related_name="salidas")
-    cantidad_sacada = None
+    cantidad_sacada = models.PositiveIntegerField()
+    fecha_salida = models.DateField(default=timezone.now)
+    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = "Salida  de Producto"
+        verbose_name_plural = "Salidas de Productos"
+
+    def __str__(self):
+        return f"Se sacaron {self.cantidad_sacada} de {self.datos.nombre}"
+    
+    def actualizar_stock(self):
+        if self.cantidad_sacada > self.datos.cantidad:
+            return f"No hay suficiente stock de {self.datos.nombre}"
+        self.datos.cantidad -= self.cantidad_sacada
+        self.datos.save()
+        return f"Stock actualizado: ahora hay {self.datos.cantidad} unidades"
+
+    def save(self, *args, **kwargs):
+        if self.cantidad_sacada > self.datos.cantidad:
+            raise ValueError(f"No hay suficiente stock de {self.datos.nombre}")
+        self.datos.cantidad -= self.cantidad_sacada
+        self.datos.save()
+        super().save(*args, **kwargs)
+
+    def total_salida(self):
+        return self.cantidad_sacada * self.datos.precio_final()
