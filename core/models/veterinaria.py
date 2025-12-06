@@ -58,3 +58,25 @@ class VetSacarDatos(models.Model):
 
     def total_salida(self):
         return self.cantidad_sacada * self.datos.precio_final()
+
+class VetEntrada(models.Model):
+    datos = models.ForeignKey(VetDatos, on_delete=models.CASCADE, related_name="entradas")
+    cantidad_ingresada = models.PositiveIntegerField()
+    fecha_de_ingreso = models.DateField(default=timezone.now)
+    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = "Ingreso de Producto"
+        verbose_name_plural = "Ingresos de Producto"
+
+    def __str__(self):
+        return f"Se ingresaron {self.cantidad_ingresada} unidad/es de {self.datos.nombre}"
+    
+    def save(self, *args, **kwargs):
+        # Actualizar stock antes de guardar la entrada
+        self.datos.cantidad += self.cantidad_ingresada
+        self.datos.save()
+        super().save(*args, **kwargs)
+
+    def total_entrada(self):
+        return self.cantidad_ingresada
