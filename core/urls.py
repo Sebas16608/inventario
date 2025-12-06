@@ -4,18 +4,18 @@ from django.urls import path
 urlpatterns = [
     # ==== MALLO ====
     # Categories
-    path("category/", MalloCategoryView.as_view(), name="category-list"),
-    path("category/<int:pk>/", MalloCategoryView.as_view(), name="category-detail"),
+    path("mallo-category/", MalloCategoryView.as_view(), name="mallo-category-list"),
+    path("mallo-category/<int:pk>/", MalloCategoryView.as_view(), name="mallo-category-detail"),
     
     #Datos
-    path("datos/", MalloDatosView.as_view(), name="datos-list"),
-    path("datos/<int:pk>/", MalloDatosView.as_view(), name="datos-detail"),
+    path("mallo-datos/", MalloDatosView.as_view(), name="mallo-datos-list"),
+    path("mallo-datos/<int:pk>/", MalloDatosView.as_view(), name="mallo-datos-detail"),
 
     # Entradas
-    path("entrada/", MalloEntradaView.as_view(), name="entradas-list"),
-    path("entrada/<int:pk>/", MalloEntradaView.as_view(), name="entradas-detail"),
+    path("mallo-entrada/", MalloEntradaView.as_view(), name="mallo-entradas-list"),
+    path("mallo-entrada/<int:pk>/", MalloEntradaView.as_view(), name="mallo-entradas-detail"),
 
     # Salidas
-    path("salida/", MalloSacarDatosView.as_view(), name="salidas-list"),
-    path("salida/<int:pk>/", MalloSacarDatosView.as_view(), name="salida-detail"),
+    path("mallo-salida/", MalloSacarDatosView.as_view(), name="mallo-salidas-list"),
+    path("mallo-salida/<int:pk>/", MalloSacarDatosView.as_view(), name="mallo-salida-detail"),
 ]
