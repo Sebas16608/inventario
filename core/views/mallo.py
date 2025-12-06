@@ -3,13 +3,13 @@ from core.serializers.mallo import MalloCategorySerializer, MalloDatosSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from core.permissions.mallo import MalloPermisos
+from core.permissions.mallo import MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura
 
 def notexist():
     return {"error": "los datos no fueron encontrados"}
 
 class MalloCategoryView(APIView):
-    permission_classes = [MalloPermisos]
+    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
     def get(self, request, pk=None):
         if pk:
             try:
@@ -53,7 +53,7 @@ class MalloCategoryView(APIView):
     
 
 class MalloDatosView(APIView):
-    permission_classes = [MalloPermisos]
+    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
     def get(self, request, pk=None):
         if pk:
             try:
@@ -96,7 +96,7 @@ class MalloDatosView(APIView):
         return Response(status=status.HTTP_204_NOT_CONTENT)
 
 class MalloSacarDatosView(APIView):
-    permission_classes = [MalloPermisos]
+    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
     def get(self, request, pk=None):
         if pk:
             try:
@@ -139,7 +139,7 @@ class MalloSacarDatosView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class MalloEntradaView(APIView):
-    permission_classes = [MalloPermisos]
+    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
     def get(self, request, pk=None):
         if pk:
             try:
