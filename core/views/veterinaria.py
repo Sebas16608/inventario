@@ -40,3 +40,12 @@ class VetCategoryView(APIView):
             serializer.save()
             return Response(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        try:
+            category = VetCategory.objects.get(pk=pk)
+        except VetCategory.DoesNotExist:
+            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        
+        category.delete()
+        return Response({"mensaje": "Dato borrado existosamente"}, status=status.HTTP_204_NO_CONTENT)
