@@ -21,3 +21,12 @@ class VetCategoryView(APIView):
             category = VetCategory.objects.all()
             serializer = VetCategorySerializer(category, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        
+    def post(self, request):
+        serializer = VetCategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
