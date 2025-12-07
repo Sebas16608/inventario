@@ -1,8 +1,8 @@
 from rest_framework import permissions
 
-class MalloPermisos(permissions.BasePermission):
+class VetPermisos(permissions.BasePermission):
     """
-    Permisos para APIs de Mallo - Aislamiento por empresa
+    Permisos para APIs de veterinaria - Aislamiento por empresa
     Verifica que el usuario tenga perfil y empresa asignada
     """
     
