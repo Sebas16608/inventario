@@ -34,3 +34,9 @@ class VetCategoryView(APIView):
             category = VetCategory.objects.get(pk=pk)
         except VetCategory.DoesNotExist:
             return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = VetCategorySerializer(category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
