@@ -48,4 +48,4 @@ class VetCategoryView(APIView):
             return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
         
         category.delete()
-        return Response({"mensaje": "Dato borrado existosamente"}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
