@@ -49,3 +49,18 @@ class VetCategoryView(APIView):
         
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class VetDatosView(APIView):
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                datos = VetDatos.objects.get(pk=pk)
+                serializer = VetDatosSerializer(datos)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except VetDatos.DoesNotExist:
+                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            datos = VetDatos.objects.all()
+            serializer = VetDatosSerializer(datos, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
