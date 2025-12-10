@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from core.models.veterinaria import VetCategory, VetDatos, VetEntrada, VetSacarDatos
-from core.serializers.veterinaria import VetCategorySerializer, VetDatosSerializer, VetEntradaSerializer
+from core.serializers.veterinaria import VetCategorySerializer, VetDatosSerializer, VetEntradaSerializer, VetSalidaSerializer
 from core.permissions.veterinaria import VetPermisosEscritura, EsSuperUser, VetPermisosLectura, VetPermisos
 
 def notexist():
@@ -92,3 +92,18 @@ class VetDatosView(APIView):
         
         datos.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class VetEntradaView(APIView):
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                entrada = VetEntrada.objects.get(pk=pk)
+                serializer = VetEntradaSerializer(entrada)
+                return Response(serializer.dada, status=status.HTTP_200_OK)
+            except VetEntrada.DoesNotExist:
+                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
+        else:
+            entrada = VetEntrada.objects.all()
+            serializer = VetEntradaSerializer(entrada, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
