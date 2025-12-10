@@ -9,7 +9,7 @@ def notexist():
     return {"error": "los datos no fueron encontrados"}
 
 class MalloCategoryView(APIView):
-    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
+    ppermission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
     def get(self, request, pk=None):
         if pk:
             try:
