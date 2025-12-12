@@ -8,23 +8,25 @@ from core.permissions.mallo import MalloPermisos, EsSuperUser, MalloPermisosLect
 def notexist():
     return {"error": "los datos no fueron encontrados"}
 
-class MalloCategoryView(APIView):
-    ppermission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
+class SuperApiView(APIView):
+    model = None
+    serializer_class =None
+
     def get(self, request, pk=None):
         if pk:
             try:
-                category = MalloCategory.objects.get(pk=pk)
-                serializer = MalloCategorySerializer(category)
+                obj = self.model.objects.get(pk=pk)
+                serializer = self.serializer_class(obj)
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            except MalloCategory.DoesNotExist:
+            except self.model.DoesNotExist:
                 return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
         else:
-            category = MalloCategory.objects.all()
-            serializer = MalloCategorySerializer(category, many=True)
+            obj = self.model.objects.all()
+            serializer = self.serializer_class(obj, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         
     def post(self, request):
-        serializer = MalloCategorySerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -32,55 +34,11 @@ class MalloCategoryView(APIView):
     
     def put(self, request, pk):
         try:
-            category = MalloCategory.objects.get(pk=pk)
-        except MalloCategory.DoesNotExist:
+            obj = self.model.objects.get(pk = pk)
+        except self.model.DoesNotexist:
             return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
         
-        serilizer = MalloCategorySerializer(category, data=request.data)
-        if serilizer.is_valid():
-            serilizer.save()
-            return Response(serilizer.data)
-        return Response(serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk):
-        try:
-            category = MalloCategory.objects.get(pk=pk)
-        except MalloCategory.DoesNotExist:
-            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        
-        category.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-class MalloDatosView(APIView):
-    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
-    def get(self, request, pk=None):
-        if pk:
-            try:
-                dato = MalloDatos.objects.get(pk=pk)
-                serializer = MalloDatosSerializer(dato)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            except MalloDatos.DoesNotExist:
-                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        else:
-            dato = MalloDatos.objects.all()
-            serializer = MalloDatosSerializer(dato, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    def post(self, request):
-        serializer = MalloDatosSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def put(self, request, pk):
-        try:
-            datos = MalloDatos.objects.get(pk=pk)
-        except MalloDatos.DoesNotExist:
-            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-
-        serializer = MalloDatosSerializer(datos, data=request.data)
+        serializer = self.serializer_class(obj, data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -88,95 +46,30 @@ class MalloDatosView(APIView):
     
     def delete(self, request, pk):
         try:
-            datos = MalloDatos.objects.get(pk=pk)
-        except MalloDatos.DoesNotExist:
-            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-
-        datos.delete()
-        return Response(status=status.HTTP_204_NOT_CONTENT)
-
-class MalloSacarDatosView(APIView):
-    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
-    def get(self, request, pk=None):
-        if pk:
-            try:
-                sacar = MalloSacarDatos.objects.get(pk=pk)
-                serializer = MalloSacarDatosSerializer(sacar)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            except MalloSacarDatos.DoesNotExist:
-                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        else:
-            sacar = MalloSacarDatos.objects.all()
-            serializer = MalloSacarDatosSerializer(sacar, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = MalloDatosSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def put(self, request, pk):
-        try:
-            datos = MalloDatos.objects.get(pk=pk)
-        except MalloDatos.DoesNotExist:
+            obj = self.model.objects.get(pk=pk)
+        except self.model.DoesNotExist:
             return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
         
-        serializer = MalloSacarDatosSerializer(datos, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk):
-        try:
-            datos = MalloDatos.objects.get(pk=pk)
-        except MalloDatos.DoesNotExist:
-            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        
-        datos.delete()
+        obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class MalloEntradaView(APIView):
-    permission_classes = [MalloPermisos, EsSuperUser, MalloPermisosLectura, MalloPermisosEscritura]
-    def get(self, request, pk=None):
-        if pk:
-            try:
-                entrada = MalloEntrada.objects.get(pk=pk)
-                serializer = MalloEntradaSerializer(entrada)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            except MalloEntrada.DoesNotExist:
-                return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        else:
-            entrada = MalloEntrada.objects.get()
-            serializer  = MalloEntradaSerializer(entrada, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        
-    def post(self, request):
-        serializer = MalloEntradaSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk):
-        try:
-            entrada = MalloEntrada.objects.get(pk=pk)
-        except MalloEntrada.DoesNotExist:
-            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        
-        serializer = MalloEntradaSerializer(entrada, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk):
-        try:
-            entrada = MalloEntrada.objects.get(pk=pk)
-        except MalloEntrada.DoesNotExist:
-            return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
-        
-        entrada.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class MalloCategoryView(SuperApiView):
+    permission_classes = []
+    model = MalloCategory
+    serializer_class = MalloCategorySerializer
+
+class MalloDatosView(SuperApiView):
+    permission_classes = []
+    model = MalloDatos
+    serializer_class = MalloDatosSerializer
+
+class MalloSacarDatosView(SuperApiView):
+    permission_classes = []
+    model = MalloSacarDatos
+    serializer_class = MalloSacarDatosSerializer
+
+class MalloEntradaView(SuperApiView):
+    permission_classes = []
+    model = MalloEntrada
+    serializer_class = MalloEntradaSerializer
