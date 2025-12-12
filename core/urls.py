@@ -1,4 +1,5 @@
 from core.views.mallo import MalloCategoryView, MalloDatosView, MalloSacarDatosView, MalloEntradaView
+from core.views.veterinaria import VetCategoryView, VetDatosView, VetEntradaView
 from django.urls import path
 
 urlpatterns = [
@@ -18,4 +19,9 @@ urlpatterns = [
     # Salidas
     path("mallo-salida/", MalloSacarDatosView.as_view(), name="mallo-salidas-list"),
     path("mallo-salida/<int:pk>/", MalloSacarDatosView.as_view(), name="mallo-salida-detail"),
+
+    # ==== VETERINARIA ====
+    # categoria
+    path("vet-category/", VetCategoryView.as_view(), name="vet-categoria-list"),
+    path("vet-category/<int:pk>/", VetCategoryView.as_view(), name="vet-categoty-detail")
 ]
