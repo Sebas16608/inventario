@@ -94,10 +94,6 @@ Endpoints CRUD generales
 
 Perfecto para datos que no pertenecen a un área específica.
 
-## 🧪 Tests
-
-La app datos incluye estructura lista para tests en tests.py.
-
 # 📦 Requerimientos
 
 Incluye archivo:
