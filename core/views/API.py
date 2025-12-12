@@ -32,7 +32,7 @@ class SuperApiView(APIView):
     def put(self, request, pk):
         try:
             obj = self.model.objects.get(pk = pk)
-        except self.model.DoesNotexist:
+        except self.model.DoesNotExist:
             return Response(notexist(), status=status.HTTP_404_NOT_FOUND)
         
         serializer = self.serializer_class(obj, data = request.data)
