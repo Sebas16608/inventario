@@ -5,6 +5,7 @@ from django.utils import timezone
 class VetCategory(models.Model):
     nombre = models.CharField(max_length=255)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, related_name="categorias")
+    distribuidor = models.CharField(max_length=255)
 
     class Meta:
         verbose_name = "Veterinaria Categoria"
@@ -20,6 +21,7 @@ class VetDatos(models.Model):
     presentacion = models.CharField(max_length=255)
     fecha_caducidad = models.DateField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
+    distribuidor = models.CharField(max_length=255)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
 
     class Meta:
@@ -33,6 +35,7 @@ class VetSacarDatos(models.Model):
     datos = models.ForeignKey(VetDatos, on_delete=models.PROTECT, related_name="salidas")
     cantidad_sacada = models.PositiveIntegerField()
     fecha_salida = models.DateField(default=timezone.now)
+    distribuidor = models.CharField(max_length=255)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
 
     class Meta:
@@ -63,6 +66,7 @@ class VetEntrada(models.Model):
     datos = models.ForeignKey(VetDatos, on_delete=models.CASCADE, related_name="entradas")
     cantidad_ingresada = models.PositiveIntegerField()
     fecha_de_ingreso = models.DateField(default=timezone.now)
+    distribuidor = models.CharField(max_length=255)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
 
     class Meta:
