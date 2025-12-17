@@ -7,8 +7,8 @@ class VetCategory(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, related_name="categorias")
 
     class Meta:
-        verbose_name = "Categoria"
-        verbose_name_plural = "Categorias"
+        verbose_name = "Veterinaria Categoria"
+        verbose_name_plural = " Veterinaria Categorias"
 
     def __str__(self):
         return self.nombre
