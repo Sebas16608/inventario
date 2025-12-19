@@ -75,3 +75,16 @@ class SacarDatos(models.Model):
 
     def total_salida(self):
         return self.cantidad_sacada * self.datos.precio_final()
+
+
+class Entradas(models.Model):
+    datos = models.ForeignKey(Datos, on_delete=models.CASCADE, related_name = "Entradas")
+    cantidad_ingresada = models.PositiveIntegerField()
+    fecha_de_ingreso = models.DateField(default=timezone.now)
+    
+    class Meta:
+        verbose_name = "Ingreso de Producto"
+        verbose_name_plural = "Ingresos de producto"
+
+    def __str__(self):
+        return f"De {self.datos.nombre} se ingresaron {self.cantidad_ingresada} unidad/es"
