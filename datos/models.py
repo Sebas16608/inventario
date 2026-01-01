@@ -88,3 +88,4 @@ class Entradas(models.Model):
 
     def __str__(self):
         return f"De {self.datos.nombre} se ingresaron {self.cantidad_ingresada} unidad/es"
+

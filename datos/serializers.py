@@ -1,25 +1,23 @@
-from .models import Category, Datos
+from .models import Category, Datos, SacarDatos, Entradas
 from rest_framework import serializers
 
-"""MALLO"""
-class CategoryMalloSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
 
-class DatosMalloSerializer(serializers.ModelSerializer):
+class DatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Datos
-        fiedls = "__all__"
+        fields = "__all__"
 
-"""Veterinaria"""
-class CategoryVetSerializer(serializers.ModelSerializer):
+class EntradaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
-        fields = ["id", "nombre", "presentacion"]
+        model = Entradas
+        fields = "__all__"
 
-class DatoVetSerializer(serializers.ModelSerializer):
+class SalidaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Datos
-        fields = ["id", "nombre", "categoria", "cantidad", "presentacion", "fecha_caducidad", "precio"]
+        model = SacarDatos
+        fields = "__all__"
 
