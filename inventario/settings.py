@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'datos',
     'core',
-    'rest_framework'
+    'rest_framework',
+    "drf_spectacular"
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'inventario.urls'
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Mi API",
+    "DESCRIPTION": "Documentación de la API del proyecto",
+    "VERSION": "1.0.0",
+}
+
 
 TEMPLATES = [
     {
@@ -78,12 +86,11 @@ JAZZMIN_UI_TWEAKS = {
 }
 
 REST_FRAMEWORK = {
-    # Solo usuarios autenticados pueden acceder
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
 }
-
 
 WSGI_APPLICATION = 'inventario.wsgi.application'
 
