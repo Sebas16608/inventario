@@ -78,6 +78,7 @@ Debido que hacer apps separadas con modelos iguales en lugar de crear
 
 # Como pueden observar tengo 2 apps las cuales son Core y Datos, pero ¿para qué son?
 **Datos** fue la primera estructura del sistema en donde es una estructura simple y funcional que use mas que todo para demostracion a los clientes.
+
 **Core** es la estructura final, la app principal bien diseñanda con modelos separados y cada modelo con su propio serializador, vistas y endpoints.
 
 ### Conclusión
